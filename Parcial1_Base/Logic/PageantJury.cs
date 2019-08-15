@@ -22,7 +22,11 @@ namespace Parcial1_Base.Logic
         public bool AddContestant(Doll d)
         {
             bool result = false;
-
+            if (d.CanParticipate && contestants.Count <= 4)
+            {
+                contestants.Add(d);
+                result = true;
+            }
             return result;
         }
 
@@ -41,17 +45,22 @@ namespace Parcial1_Base.Logic
         public Doll GetWinner()
         {
             Doll winner = null;
-
-            switch (contestants.Count)
+            int style = 0;
+            for(int i = 0; i < contestants.Count; i++)
             {
-                case 1:
-                    // Single contestant is deemed winner, no matter its score.
+                if(i == 0)
+                {
                     winner = contestants[0];
-                    break;
-
-                default:
-                    // Sorts the contestants and return the one with the highest style score.
-                    break;
+                    style = winner.Style;
+                }
+                else
+                {
+                    if (contestants[i].Style > style)
+                    {
+                        winner = contestants[i];
+                        style = winner.Style;
+                    }
+                }
             }
 
             return winner;

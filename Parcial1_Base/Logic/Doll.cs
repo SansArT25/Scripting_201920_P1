@@ -20,23 +20,26 @@ namespace Parcial1_Base.Logic
         /// <summary>
         /// Whether the doll can be included in the contest.
         /// </summary>
-        public bool CanParticipate { get => false; }
+        public bool CanParticipate { get => CanParticipate; set => CanParticipate = value; }
+        
 
         /// <summary>
         /// The total accessories count worn by the doll.
         /// </summary>
         public int TotalAccessories { get => accessories.Count; }
 
-        public int BraceletCount { get => 0; }
+
+        public int BraceletCount { get => BraceletCount; set => BraceletCount = value; }
 
         /// <summary>
         /// The total style score, affected by each worn accessory.
         /// </summary>
-        public int Style { get => 0; }
+        public int Style { get => Style; set => Style = value; }
 
         public Doll(string name)
         {
             Name = name;
+            CanParticipate = false;
         }
 
         /// <summary>
@@ -47,7 +50,22 @@ namespace Parcial1_Base.Logic
         public bool Remove(Accessory a)
         {
             bool result = false;
-
+            if(accessories.Contains(a))
+            {
+                for(int i = 0; i < accessories.Count; i++)
+                {
+                    if (accessories[i] == a)
+                    {
+                        accessories.Remove(accessories[i]);
+                        result = true;
+                        if(accessories[i] is Dress)
+                        {
+                            accessories.Clear();
+                        }
+                    }
+                }
+            }
+            
             return result;
         }
 
@@ -58,7 +76,70 @@ namespace Parcial1_Base.Logic
         /// <returns>True if the doll successfully wore the accessory. False otherwise</returns>
         public bool Wear(Accessory a)
         {
-            return false;
+            bool result = true;
+            if(a is Dress)
+            {
+                for(int i = 0; i < accessories.Count; i++)
+                {
+                    if(accessories[i] is Dress && result == true)
+                    {
+                        result = false;
+                    }
+                    else if (i == accessories.Count - 1 && result == true)
+                    {
+                        accessories.Add(a);
+                        CanParticipate = true;
+                    }
+                }
+            }
+            else if (a is Necklace)
+            {
+                for (int i = 0; i < accessories.Count; i++)
+                {
+                    if (accessories[i] is Necklace && result == true)
+                    {
+                        result = false;
+                    }
+                    else if (i == accessories.Count - 1 && result == true)
+                    {
+                        accessories.Add(a);
+                    }
+                }
+            }
+            else if (a is Purse)
+            {
+                for (int i = 0; i < accessories.Count; i++)
+                {
+                    if (accessories[i] is Purse && result == true)
+                    {
+                        result = false;
+                    }
+                    else if(i == accessories.Count - 1 && result == true)
+                    {
+                        accessories.Add(a);
+                    }
+                }
+            }
+            else if (a is Bracelet)
+            {
+                int limit = 0;
+                for (int i = 0; i < accessories.Count; i++)
+                {
+                    if (accessories[i] is Bracelet && result == true)
+                    {
+                        limit++;
+                    }
+                    if(limit >= 5)
+                    {
+                        result = false;
+                    }
+                    else
+                    {
+
+                    }
+                }
+            }
+            return result;
         }
 
         /// <summary>
