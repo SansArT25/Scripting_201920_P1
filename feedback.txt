@@ -1,0 +1,22 @@
+Feedback
+
+* Hay lógica que satisfaga que en el concurso puedan haber hasta 4 concursantes, pero no se valida que sean distintas y la prueba falla (0.2 / 0.25)
+* Hay lógica correcta para determinar a la concursante ganadora. (0.25 / 0.25). Sin embargo, no funciona con tu código porque otras partes fallan, como se detalla a continuación.
+* Hay lógica para determinar que una concursante pueda participar si tiene un vestido equipado, pero falla por StackOverflow. Estás leyendo y escribiendo la misma propiedad sin caso base, así que se queda indefinidamente determinando qué leer/escribir (0.3 / 0.5)
+* La lógica para equipar accesorios no tiene en cuenta que no hayan accesorios equipados. Así, la función Wear falla siempre que quiero equipar el primer accesorio. El resto de la lógica parece estar bien. (0.1 / 0.25)
+* No hay lógica para determinar que un collar puede equiparse con ciertos vestidos (0.0 / 0.25)
+* No hay lógica para incrementar el puntaje de estilo que da un bolso si es equipado con ciertos vestidos (0.0 / 0.25)
+* No hay lógica que limite las pulseras según el vestido equipado (0.0 / 1.0)
+* Hay lógica de desequipamiento de accesorios (0.25 / 0.25)
+* La lógica de desequipamiento de accesorios elimina primero el accesorio antes de validar que sea un vestido; en consecuencia, al preguntar por el i-ésimo accesorio, este ya no es un vestido y no desequipa el resto de accesorios (0.0 / 0.5)
+
+Total funcionalidad: 1.1 / 3.5
+
+Diseño orientado a objetos
+* El uso de propiedades está errado en algunos casos. Las propiedades deben leer o escribir un atributo específico, no a sí mismas (- 0.2)
+* Es correcto hacer las evaluaciones de tipos de vestuario en Doll.Wear(), dado que equipar un accesorio no es muy diferente entre sí (+ 0.5)
+
+Total diseño orientado a objetos: 0.3 / 1.5
+
+
+Total: (1.4 / 5.0)
